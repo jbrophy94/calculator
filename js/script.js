@@ -43,7 +43,6 @@ zero.textContent = "0";
 opRow.appendChild(zero);
 //Make zero's width the same as other nums
 zero.style.width = `${document.getElementById("7").offsetWidth}px`;
-console.log(document.getElementById("7").offsetWidth);
 
 //Create container for operator buttons
 const operatorBtnsContainer = document.createElement("div");
@@ -131,6 +130,7 @@ let currVal = "";
 let valsArr = [];
 let opsArr = [];
 let updateDisplay = false;
+let resultObtained = false;
 const opObj = {
   add: add,
   subtract: subtract,
@@ -141,6 +141,7 @@ const opObj = {
 
 btnsContainer.addEventListener("click", function (e) {
   if ([...e.target.classList].includes("num-btn")) {
+    if (resultObtained) clear();
     //Store string of integer in currVal
     let id = e.target.id;
     currVal += id;
@@ -164,17 +165,22 @@ operatorBtnsContainer.addEventListener("click", function (e) {
     //Ensure we are starting from an empty string if we click more numbers.
     updateDisplay = true;
 
-    console.log(valsArr, opsArr);
+    resultObtained = false;
   }
 });
 
 //Implement clear button logic
 
-clearBtn.addEventListener("click", function () {
+function clear() {
   valsArr = [];
   opsArr = [];
   currVal = "";
   display.textContent = "";
+  resultObtained = false;
+}
+
+clearBtn.addEventListener("click", function () {
+  clear();
 });
 
 //Implement equals button logic
@@ -200,9 +206,15 @@ equalsBtn.addEventListener("click", function () {
       for (let i = 1; i < opsArr.length; i++) {
         intermVals.push(opsArr[i](intermVals[i - 1], valsArr[i + 1]));
       }
-      display.textContent = intermVals.at(-1);
     }
+    let result = intermVals.at(-1);
+    display.textContent = result;
+    valsArr = [];
+    opsArr = [];
+    currVal = `${result}`;
+    //Allow someone to keep running operations
   }
-  //reset updateDisplay back to true
+  //reset state variables
   updateDisplay = true;
+  resultObtained = true;
 });
