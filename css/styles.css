@@ -4,6 +4,12 @@
   margin-right: auto;
 }
 
+.display {
+  text-align: left;
+  padding: 5px;
+  font-size: 36px;
+}
+
 .container {
   display: flex;
   flex-direction: column;

@@ -64,34 +64,40 @@ multiplyBtn.id = "*";
 divideBtn.id = "*";
 powerBtn.id = "**";
 
-equalsBtn.classList.add("*");
-equalsBtn.classList.add("operator-btn");
+//Note that equals does not have the operator-btn class.
+equalsBtn.classList.add("=");
 equalsBtn.classList.add("btn");
+equalsBtn.id = "=";
 equalsBtn.textContent = "=";
 
 addBtn.classList.add("+");
 addBtn.classList.add("operator-btn");
 addBtn.classList.add("btn");
+addBtn.id = "add";
 addBtn.textContent = "+";
 
 subtractBtn.classList.add("-");
 subtractBtn.classList.add("operator-btn");
 subtractBtn.classList.add("btn");
+subtractBtn.id = "subtract";
 subtractBtn.textContent = "-";
 
 multiplyBtn.classList.add("*");
 multiplyBtn.classList.add("operator-btn");
 multiplyBtn.classList.add("btn");
+multiplyBtn.id = "multiply";
 multiplyBtn.textContent = "*";
 
 divideBtn.classList.add("/");
 divideBtn.classList.add("operator-btn");
 divideBtn.classList.add("btn");
+divideBtn.id = "divide";
 divideBtn.textContent = "/";
 
 powerBtn.classList.add("**");
 powerBtn.classList.add("operator-btn");
 powerBtn.classList.add("btn");
+powerBtn.id = "power";
 powerBtn.textContent = "^/**";
 
 operatorBtnsContainer.appendChild(equalsBtn);
@@ -149,9 +155,11 @@ function power(num1, num2) {
   return num1 ** num2;
 }
 
+//Implement logic onto calculator
 let currVal = "";
 let valsArr = [];
 let opsArr = [];
+let updateDisplay = false;
 const opObj = {
   add: add,
   subtract: subtract,
@@ -161,6 +169,30 @@ const opObj = {
 };
 
 btnsContainer.addEventListener("click", function (e) {
-  if ([...e.target.classList].includes("num-btn"))
-    console.log("button clicked");
+  if ([...e.target.classList].includes("num-btn")) {
+    //Store string of integer in currVal
+    let id = e.target.id;
+    currVal += id;
+    //Update the display text. If we just clicked an operator, updateDisplay should be
+    //true, and the string will clear before adding the new integer.
+    //Otherwise, it will add the new integer onto the existing string of integers.
+    //The operator-btns even listener will set the state variable to true.
+    if (updateDisplay) display.textContent = id;
+    else display.textContent += id;
+
+    //Change updateDisplay state variable
+    updateDisplay = false;
+  }
+});
+
+operatorBtnsContainer.addEventListener("click", function (e) {
+  if ([...e.target.classList].includes("operator-btn")) {
+    valsArr.push(parseInt(currVal));
+    currVal = "";
+    opsArr.push(opObj[e.target.id]);
+    //Ensure we are starting from an empty string if we click more numbers.
+    updateDisplay = true;
+
+    console.log(valsArr, opsArr);
+  }
 });
