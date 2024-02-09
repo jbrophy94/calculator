@@ -44,6 +44,15 @@ opRow.appendChild(zero);
 //Make zero's width the same as other nums
 zero.style.width = `${document.getElementById("7").offsetWidth}px`;
 
+//Make decimal button
+const decimalBtn = document.createElement("div");
+decimalBtn.classList.add("num-btn");
+decimalBtn.classList.add("btn");
+decimalBtn.classList.add("decimal");
+decimalBtn.id = ".";
+decimalBtn.textContent = ".";
+//Will add this to the operatorBtnsContainer below
+
 //Create container for operator buttons
 const operatorBtnsContainer = document.createElement("div");
 operatorBtnsContainer.classList.add("operator-btns-container");
@@ -93,6 +102,7 @@ powerBtn.classList.add("btn");
 powerBtn.id = "power";
 powerBtn.textContent = "^/**";
 
+operatorBtnsContainer.appendChild(decimalBtn);
 operatorBtnsContainer.appendChild(equalsBtn);
 operatorBtnsContainer.appendChild(addBtn);
 operatorBtnsContainer.appendChild(subtractBtn);
