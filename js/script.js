@@ -7,6 +7,7 @@ const display = document.querySelector(".display");
 const btnsContainer = document.querySelector(".btns-container");
 const numBtnsContainer = document.querySelector(".num-btns");
 const lastRowContainer = document.querySelector(".last-row");
+const clearBtn = document.querySelector(".clear-btn");
 
 //programatically add number buttons ("Leaving off 0 for now")
 let counter = 1;
@@ -107,32 +108,9 @@ operatorBtnsContainer.appendChild(multiplyBtn);
 operatorBtnsContainer.appendChild(divideBtn);
 operatorBtnsContainer.appendChild(powerBtn);
 
-//Broad logic
-//Write functions for each operation. Each function will only take 2 numbers
+//Apply logic
 
-//create state variables for operation being performed. Add event listeners to
-//operator buttons that change this state variable.
-
-//the state variable should decide which function is being called at any given time
-
-//create an array to store intermediate results of operation
-
-//when a number is clicked, and then an operator, and then a second number, store the
-//result inside the array we created in the last step.
-//For each subsequent operation, the first argument in the operation's function
-//will be the last item of the array (array.at(-1))
-
-//Don't display the result until you click the '=' sign. So we will have a display
-//result function added in an event listener
-
-//create a clear function that clears the array and the display.
-
-//The above isn't quite right, it won't work with 2 digit numbers.
-//Need a buffer variable to store the numbers in (string and add the id)
-//Then at the start of each operator function, including =, we'll push the
-//full number into the array and clear its contents
-
-const intermediateValues = [];
+//Define basica operations to store in opsObj (so that we can store them in an array when relevant)
 let currValue = "";
 
 function add(num1, num2) {
@@ -155,7 +133,7 @@ function power(num1, num2) {
   return num1 ** num2;
 }
 
-//Implement logic onto calculator
+//Implement logic into calculator
 let currVal = "";
 let valsArr = [];
 let opsArr = [];
@@ -194,5 +172,21 @@ operatorBtnsContainer.addEventListener("click", function (e) {
     updateDisplay = true;
 
     console.log(valsArr, opsArr);
+  }
+});
+
+//Implement clear button logic
+
+clearBtn.addEventListener("click", function () {
+  valsArr = [];
+  opsArr = [];
+  currVal = "";
+  display.textContent = "";
+});
+
+//Implement equals button logic
+equalsBtn.addEventListener("click", function () {
+  if (valsArr.length > 1) {
+    const intermVals = [];
   }
 });

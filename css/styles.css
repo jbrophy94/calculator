@@ -1,7 +1,11 @@
-.title {
+body {
   font-family: sans-serif;
+}
+
+.title {
   margin-left: auto;
   margin-right: auto;
+  color: azure;
 }
 
 .display {
@@ -15,7 +19,7 @@
   flex-direction: column;
   width: 50%;
   border: 3px solid black;
-  height: 350px;
+  height: 400px;
   background-color: rgb(0, 76, 255);
   margin: 25px;
 }
@@ -99,4 +103,13 @@
 
 .last-row .num-btn {
   flex: 0 1 auto;
+}
+
+.clear-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3px;
+  height: 2px;
+  font-size: 18px;
 }
