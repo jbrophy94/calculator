@@ -159,7 +159,7 @@ btnsContainer.addEventListener("click", function (e) {
 
 operatorBtnsContainer.addEventListener("click", function (e) {
   if ([...e.target.classList].includes("operator-btn")) {
-    valsArr.push(parseInt(currVal));
+    valsArr.push(parseFloat(currVal));
     currVal = "";
     opsArr.push(opObj[e.target.id]);
     //Ensure we are starting from an empty string if we click more numbers.
@@ -188,7 +188,7 @@ equalsBtn.addEventListener("click", function () {
   //Make sure currVal is pushed into the array (and then cleared)
   //These 2 lines is repeated code from the operator-btn event listenr.
   //This is inefficient and should likely be refactored into a function.
-  valsArr.push(parseInt(currVal));
+  valsArr.push(parseFloat(currVal));
   currVal = "";
   //Only calculate anything if there has been at least 2 number
   //This is equivalent of saying there has been at least one operator and 2 operands
