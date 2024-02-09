@@ -58,17 +58,10 @@ const multiplyBtn = document.createElement("div");
 const divideBtn = document.createElement("div");
 const powerBtn = document.createElement("div");
 
-equalsBtn.id = "=";
-addBtn.id = "+";
-subtractBtn.id = "-";
-multiplyBtn.id = "*";
-divideBtn.id = "*";
-powerBtn.id = "**";
-
 //Note that equals does not have the operator-btn class.
 equalsBtn.classList.add("=");
 equalsBtn.classList.add("btn");
-equalsBtn.id = "=";
+equalsBtn.id = "equals";
 equalsBtn.textContent = "=";
 
 addBtn.classList.add("+");
@@ -186,7 +179,30 @@ clearBtn.addEventListener("click", function () {
 
 //Implement equals button logic
 equalsBtn.addEventListener("click", function () {
+  //Make sure currVal is pushed into the array (and then cleared)
+  //These 2 lines is repeated code from the operator-btn event listenr.
+  //This is inefficient and should likely be refactored into a function.
+  valsArr.push(parseInt(currVal));
+  currVal = "";
+  //Only calculate anything if there has been at least 2 number
+  //This is equivalent of saying there has been at least one operator and 2 operands
   if (valsArr.length > 1) {
+    //Store running totals
     const intermVals = [];
+
+    //store the result of the first operation in intermVals
+    intermVals.push(opsArr[0](valsArr[0], valsArr[1]));
+
+    //If there are no other values, simply return the result stored in intermVals above
+    if (valsArr.length < 3) display.textContent = intermVals[0];
+    //Otherwise, loop through the remaining required operations.
+    else {
+      for (let i = 1; i < opsArr.length; i++) {
+        intermVals.push(opsArr[i](intermVals[i - 1], valsArr[i + 1]));
+      }
+      display.textContent = intermVals.at(-1);
+    }
   }
+  //reset updateDisplay back to true
+  updateDisplay = true;
 });
